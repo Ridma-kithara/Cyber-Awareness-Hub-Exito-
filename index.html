@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Awareness Hub - ISACA Student Group ICBT Campus</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-primary: #00f2fe;
+            --accent-secondary: #4facfe;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --alert-red: #ef4444;
+            --success-green: #22c55e;
+            --isaca-teal: #008985;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Live Threat Simulation Ticker */
+        .ticker-wrap {
+            background: linear-gradient(90deg, #1e1b4b, #311042);
+            color: var(--accent-primary);
+            padding: 12px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+
+        .ticker span {
+            margin-right: 60px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-image {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-action-btn {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #020617;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 90px 20px;
+            background: radial-gradient(circle at top, rgba(79, 172, 254, 0.12) 0%, transparent 60%);
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+        }
+
+        .hero-subtitle span {
+            font-weight: bold;
+        }
+
+        .alert {
+            color: var(--alert-red);
+        }
+
+        .safe {
+            color: var(--success-green);
+        }
+
+        .secure {
+            color: var(--accent-primary);
+        }
+
+        .hero-desc {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Main Grid Layout */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 35px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px 80px 20px;
+            flex: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards Design */
+        .info-card {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title-tags {
+            background: rgba(0, 242, 254, 0.08);
+            color: var(--accent-primary);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2,
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .info-card h3 {
+            color: var(--text-main);
+            font-size: 22px;
+        }
+
+        .info-card p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        /* Checklist Component */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 20px;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.01);
+        }
+
+        .checklist-icon {
+            background: rgba(0, 242, 254, 0.08);
+            padding: 12px;
+            border-radius: 10px;
+            margin-right: 18px;
+            color: var(--accent-primary);
+            font-size: 18px;
+        }
+
+        .checklist-content h4 {
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+
+        .checklist-content p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        /* Right Column Blocks */
+        .tips-container h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 12px;
+        }
+
+        .tip-block {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 25px;
+            border-left: 5px solid var(--accent-secondary);
+            transition: all 0.3s ease;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            border-right: 1px solid rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .tip-block:hover {
+            transform: translateX(6px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tip-visual {
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            min-width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 5px;
+        }
+
+        .original-text {
+            font-style: italic;
+            color: var(--text-muted);
+            margin: 15px 0;
+            padding: 12px 18px;
+            border-left: 3px solid rgba(0, 242, 254, 0.3);
+            background: rgba(0, 242, 254, 0.02);
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+        }
+
+        .expanded-details strong {
+            color: var(--accent-secondary);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .expanded-details ul {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        .expanded-details li {
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* Quiz Widget Design */
+        .quiz-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0b1329 100%);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #020617;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 18px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .quiz-btn:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
+
+        #quiz-result {
+            display: none;
+            background: rgba(34, 197, 94, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 18px;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            font-weight: 500;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #020617;
+            padding: 70px 20px 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-primary);
+            margin-bottom: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .footer-col p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 14.5px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            margin-right: 20px;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer-logo-container {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            height: 45px;
+            width: auto;
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Live Cyber Threat Simulation Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span><i class="fa-solid fa-circle-exclamation" style="color: var(--alert-red);"></i> <strong>CRITICAL
+                    ALERT:</strong> Active phishing campaign targeting local university student portals detected.</span>
+            <span><i class="fa-solid fa-shield" style="color: var(--success-green);"></i> <strong>CYBER
+                    HYGIENE:</strong> Multi-Factor Authentication (MFA) reduces account takeover risk by 99%. Enable it
+                now.</span>
+            <span><i class="fa-solid fa-bug" style="color: var(--accent-secondary);"></i> <strong>PATCH UPDATE:</strong>
+                Zero-day exploit reported in chromium browsers. Verify your version is up-to-date.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-area">
+            <img src="isg-icbt-light.png" alt="ISACA Student Group ICBT Campus Logo" class="logo-image">
+            <div class="logo-text">
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">Cyber Awareness Hub</h1>
+        <div class="hero-subtitle">
+            Stay <span class="alert">Alert.</span> Stay <span class="safe">Safe.</span> Stay <span
+                class="secure">Secure.</span>
+        </div>
+        <p class="hero-desc">
+            Develop advanced zero-trust detection strategies and strengthen your professional posture. Your awareness
+            remains the absolute final firewall against engineered digital vectors.
+        </p>
+    </section>
+
+    <!-- Main Dynamic Container -->
+    <main class="main-container">
+
+        <!-- Left Sidebar Column -->
+        <div class="sidebar-cards">
+
+            <!-- Strategic Overview Card -->
+            <div class="info-card">
+                <span class="card-title-tags">Strategic Vector</span>
+                <h3>The Digital Imperative</h3>
+                <p>Modern cyber threats evolve beyond traditional firewalls. Dynamic awareness stands as the initial
+                    line of defense to shield your corporate identity, intellectual property, and financial assets.</p>
+                <p>With artificial intelligence amplifying malicious social engineering, evaluating and verifying
+                    unexpected communication is a mandatory tech skill.</p>
+            </div>
+
+            <!-- Interactive Threat Intelligence Challenge -->
+            <div class="info-card quiz-container">
+                <span class="card-title-tags"
+                    style="background: rgba(24facfe, 0.15); color: var(--accent-primary);">Simulation</span>
+                <h3>Instant Threat Assessment</h3>
+                <p id="quiz-question">An external address contacts you with an urgent notification containing an
+                    attachment titled "Semester_Exam_Leak.pdf.exe". What is your immediate triage response?</p>
+                <button class="quiz-btn" onclick="checkAnswer()">
+                    <i class="fa-solid fa-shield-halved"></i> Execute Analysis
+                </button>
+                <div id="quiz-result"></div>
+            </div>
+
+            <!-- Core Cyber Habits Checklist -->
+            <div class="info-card">
+                <span class="card-title-tags">Operational Hygiene</span>
+                <h3>Standard Defensive Habits</h3>
+
+                <div class="checklist-item">
+                    <div class="checklist-icon"><i class="fa-solid fa-key"></i></div>
+                    <div class="checklist-content">
+                        <h4>MFA Identity Verification</h4>
+                        <p>Enforce cryptographically secure mobile authenticator tokens over vulnerable SMS
+                            verification.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-icon"><i class="fa-solid fa-rotate"></i></div>
+                    <div class="checklist-content">
+                        <h4>Patch Lifecycle Management</h4>
+                        <p>Enable automatic vendor updates to close exploitable windows against zero-day
+                            vulnerabilities.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-icon"><i class="fa-solid fa-wifi"></i></div>
+                    <div class="checklist-content">
+                        <h4>Public Network Encryption</h4>
+                        <p>Mandate a secure, encrypted corporate VPN gateway prior to parsing sensitive assets on
+                            untrusted Wi-Fi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Detailed Column -->
+        <div class="tips-container">
+            <h2>Critical Threat Mitigations & Scenarios</h2>
+
+            <!-- Vector 1 -->
+            <div class="tip-block" style="border-left-color: #ef4444;">
+                <div class="tip-visual"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <div class="tip-body">
+                    <h2>Advanced Phishing Isolation</h2>
+                    <div class="original-text">"Ignore suspicious emails, messages, or links. Delete them. Don't
+                        engage."</div>
+                    <div class="expanded-details">
+                        <strong>Defensive Strategies:</strong>
+                        <ul>
+                            <li>Interacting with 'Unsubscribe' hooks embedded inside targeted phishing loops validates
+                                delivery vectors directly to attackers.</li>
+                            <li>Perform cryptographic header verification and SPF/DKIM validation if corporate origin is
+                                ambiguous.</li>
+                            <li>Route threat indicators to security operations centers using platform reporting plugins
+                                immediately.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vector 2 -->
+            <div class="tip-block" style="border-left-color: #f59e0b;">
+                <div class="tip-visual"><i class="fa-solid fa-id-card"></i></div>
+                <div class="tip-body">
+                    <h2>Enforcing PII Integrity Boundaries</h2>
+                    <div class="original-text">"Never share any personal information or bank details for job offers you
+                        have not applied for."</div>
+                    <div class="expanded-details">
+                        <strong>Identity Protection Blueprint:</strong>
+                        <ul>
+                            <li>Restrain the upload of national identity metrics (NIC, Passports, or transcripts) into
+                                external, unverified form fields.</li>
+                            <li>Legitimate administrators and institutions maintain standard communication channels;
+                                they never solicit high-privilege OTPs over arbitrary calls.</li>
+                            <li>Minimize your open intelligence profile by filtering personal metadata exposures across
+                                secondary social footprints.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vector 3 -->
+            <div class="tip-block" style="border-left-color: #3b82f6;">
+                <div class="tip-visual"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <div class="tip-body">
+                    <h2>Neutralizing Typo-Squatting Vectors</h2>
+                    <div class="original-text">"Fake job offers often have spelling errors and grammatical mistakes.
+                        Stay alert!"</div>
+                    <div class="expanded-details">
+                        <strong>Visual Validation Metrics:</strong>
+                        <ul>
+                            <li>Inspect address syntax deeply for lookalike indicators (such as substituting characters
+                                or substituting extensions like `.net`/`.xyz` for corporate domains).</li>
+                            <li>Audit full payload extensions carefully to detect double-extension masquerades like
+                                `invoice.pdf.exe`.</li>
+                            <li>High-velocity threat syntax demanding instantaneous operational responses usually
+                                indicates social engineering.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vector 4 -->
+            <div class="tip-block" style="border-left-color: #10b981;">
+                <div class="tip-visual"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                <div class="tip-body">
+                    <h2>Detecting Financial Advance-Fee Scams</h2>
+                    <div class="original-text">"Legitimate companies never ask for money. If it sounds too good to be
+                        true, it probably is."</div>
+                    <div class="expanded-details">
+                        <strong>Financial Security Safeguards:</strong>
+                        <ul>
+                            <li>Legitimate talent onboarding systems do not request onboarding deposits, software
+                                buy-backs, or security compliance tracking fees.</li>
+                            <li>Exercise strong skepticism toward task-automation workflows offering heavy returns for
+                                small manual actions.</li>
+                            <li>Query official corporate business registers independently before transmitting capital to
+                                any third-party gateway.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vector 5 -->
+            <div class="tip-block" style="border-left-color: #8b5cf6;">
+                <div class="tip-visual"><i class="fa-solid fa-user-check"></i></div>
+                <div class="tip-body">
+                    <h2>Assessing Outbound Domain Authority</h2>
+                    <div class="original-text">"Genuine offers are sent from company-registered email addresses. Always
+                        verify before you trust."</div>
+                    <div class="expanded-details">
+                        <strong>Enterprise Validation Protocol:</strong>
+                        <ul>
+                            <li>Established organizations do not conduct formal B2C or B2B outreach through consumer
+                                spaces like `@gmail.com` or `@yahoo.com`.</li>
+                            <li>Audit the outbound recruiter's official professional history via authenticated
+                                enterprise spaces like LinkedIn.</li>
+                            <li>Confirm communication validity through an out-of-band contact channel established
+                                directly from the target company's primary corporate landing space.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Mission Parameters</h4>
+                <p>Digital security is an unyielding, collective effort. We aim to elevate digital security across
+                    student ecosystems through early threat detection and proactive learning framework updates.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Sponsoring Entity</h4>
+                <p><strong>ISACA STUDENT GROUP</strong><br>ICBT CAMPUS<br>Empowering Minds. Fortifying Digital
+                    Resilience.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Digital Touchpoints</h4>
+                <p>Connect with our engineering community for technical meetups, updates, and upcoming structural
+                    hackathons.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com/icbt.isg" target="_blank" title="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/icbt.isg" target="_blank" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-logo-container">
+                <img src="isg-icbt-light.png" alt="ISACA Student Group Logo" class="footer-logo">
+            </div>
+            <p><i class="fa-solid fa-lock" style="color: var(--accent-primary);"></i> Validate Intent. Think Before You
+                Click. Engineered Safely by ICBT Student Group. © 2026</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Script for Threat Triage Simulation -->
+    <script>
+        function checkAnswer() {
+            const resultElement = document.getElementById('quiz-result');
+            resultElement.style.display = "block";
+            resultElement.innerHTML = "<i class='fa-solid fa-circle-check'></i> <strong>Analysis Complete:</strong> Critical threat identified! The trailing <code>.exe</code> suffix marks this file as an executable binary payload, not a standard document. Executing this would compromise the system endpoint. Correct action: Report vector to Security and delete immediately.";
+        }
+    </script>
+</body>
+
+</html>
