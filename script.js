@@ -561,7 +561,6 @@ function advancedMatch(query, item) {
     
     const searchableText = (item.question + " " + item.answer + " " + item.keywords.join(" ") + " " + (item.synonyms || []).join(" ")).toLowerCase();
     
-    // Exact phrase match
     if (searchableText.includes(q)) {
         score += 25;
     }
@@ -590,7 +589,6 @@ function advancedMatch(query, item) {
         }
     });
     
-    // Boost for common cyber terms
     const cyberTerms = ["cyber", "security", "online", "internet", "digital", "computer", "network", "data", "privacy", "safety", "protection", "threat", "attack", "safe", "secure", "hack", "virus", "malware"];
     cyberTerms.forEach(term => {
         if (q.includes(term) || words.some(w => w.includes(term) || term.includes(w))) {
@@ -650,12 +648,11 @@ function runSearch(prefill) {
         return;
     }
 
-    // Show results with pagination
     const maxResults = 8;
     const showAll = scored.length <= maxResults;
     const totalResults = scored.length;
     
-    let resultsHtml = `<div style="margin-bottom:12px; font-size:14px; color:var(--text-muted);">Found <strong style="color:var(--accent-primary);">${totalResults}</strong> results for "${input.value}"</div>`;
+    let resultsHtml = `<div style="margin-bottom:12px; font-size:14px; color:var(--text-muted);">${t.search_results_count || 'Found'} <strong style="color:var(--accent-primary);">${totalResults}</strong> ${t.search_results_for || 'results for'} "${input.value}"</div>`;
     
     scored.slice(0, maxResults).forEach(({ item, score }) => {
         const index = faqData.indexOf(item);
@@ -683,7 +680,7 @@ function runSearch(prefill) {
             <div style="text-align:center; margin-top:20px;">
                 <button onclick="showAllResults()" style="background:rgba(0,242,254,0.1); color:var(--accent-primary); border:1px solid rgba(0,242,254,0.3); padding:12px 30px; border-radius:10px; cursor:pointer; font-weight:600; font-size:14px; transition:all 0.3s;" 
                         onmouseover="this.style.background='rgba(0,242,254,0.2)'" onmouseout="this.style.background='rgba(0,242,254,0.1)'">
-                    <i class="fa-solid fa-chevron-down"></i> Show ${scored.length - maxResults} more results
+                    <i class="fa-solid fa-chevron-down"></i> ${t.show_more || 'Show'} ${scored.length - maxResults} ${t.more_results || 'more results'}
                 </button>
             </div>
         `;
@@ -698,9 +695,10 @@ function showAllResults() {
     
     const resultsDiv = document.getElementById('search-results');
     const input = document.getElementById('search-input');
+    const t = translations[currentLang] || translations.en;
     const totalResults = window._allSearchResults.length;
     
-    let allHtml = `<div style="margin-bottom:12px; font-size:14px; color:var(--text-muted);">Found <strong style="color:var(--accent-primary);">${totalResults}</strong> results for "${input.value}"</div>`;
+    let allHtml = `<div style="margin-bottom:12px; font-size:14px; color:var(--text-muted);">${t.search_results_count || 'Found'} <strong style="color:var(--accent-primary);">${totalResults}</strong> ${t.search_results_for || 'results for'} "${input.value}"</div>`;
     
     window._allSearchResults.forEach(({ item, score }) => {
         const index = faqData.indexOf(item);
@@ -726,7 +724,7 @@ function showAllResults() {
     allHtml += `
         <div style="text-align:center; margin-top:20px;">
             <button onclick="window._allSearchResults=null; runSearch()" style="background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.3); padding:12px 30px; border-radius:10px; cursor:pointer; font-weight:600; font-size:14px; transition:all 0.3s;">
-                <i class="fa-solid fa-chevron-up"></i> Show fewer results
+                <i class="fa-solid fa-chevron-up"></i> ${t.show_fewer || 'Show fewer results'}
             </button>
         </div>
     `;
@@ -735,32 +733,48 @@ function showAllResults() {
 }
 
 // ============================================================
-// TRANSLATIONS (EN / SI / TA)
+// TRANSLATIONS (EN / SI / TA) - FULL PAGE TRANSLATIONS
 // ============================================================
 
 const translations = {
     en: {
+        // Ticker
         ticker1_label: "CRITICAL ALERT:",
         ticker1_text: "Active phishing campaign targeting local university student portals detected.",
         ticker2_label: "CYBER HYGIENE:",
         ticker2_text: "Multi-Factor Authentication (MFA) reduces account takeover risk by 99%. Enable it now.",
         ticker3_label: "PATCH UPDATE:",
         ticker3_text: "Zero-day exploit reported in chromium browsers. Verify your version is up-to-date.",
+        
+        // Hero
         hero_title: "Cyber Awareness Hub",
         hero_stay: "Stay", hero_alert: "Alert.", hero_safe: "Safe.", hero_secure: "Secure.",
         hero_desc: "Develop advanced zero-trust detection strategies and strengthen your professional posture. Your awareness remains the absolute final firewall against engineered digital vectors.",
+        
+        // Search
         search_placeholder: "Ask a question... e.g. 'cyber security' or 'phishing'",
         search_no_result: "No exact match found. Try one of these popular topics:",
         search_btn: "Search",
+        search_results_count: "Found",
+        search_results_for: "results for",
+        show_more: "Show",
+        more_results: "more results",
+        show_fewer: "Show fewer results",
+        
+        // Cards
         card1_tag: "Strategic Vector",
         card1_title: "The Digital Imperative",
         card1_p1: "Modern cyber threats evolve beyond traditional firewalls. Dynamic awareness stands as the initial line of defense to shield your corporate identity, intellectual property, and financial assets.",
         card1_p2: "With artificial intelligence amplifying malicious social engineering, evaluating and verifying unexpected communication is a mandatory tech skill.",
+        
+        // Quiz
         quiz_tag: "Simulation",
         quiz_title: "Instant Threat Assessment",
         quiz_question: "An external address contacts you with an urgent notification containing an attachment titled \"Semester_Exam_Leak.pdf.exe\". What is your immediate triage response?",
         quiz_btn: "Execute Analysis",
         quiz_result: "<i class='fa-solid fa-circle-check'></i> <strong>Analysis Complete:</strong> Critical threat identified! The trailing <code>.exe</code> suffix marks this file as an executable binary payload, not a standard document. Executing this would compromise the system endpoint. Correct action: Report vector to Security and delete immediately.",
+        
+        // Checklist
         card3_tag: "Operational Hygiene",
         card3_title: "Standard Defensive Habits",
         check1_title: "MFA Identity Verification",
@@ -769,6 +783,8 @@ const translations = {
         check2_desc: "Enable automatic vendor updates to close exploitable windows against zero-day vulnerabilities.",
         check3_title: "Public Network Encryption",
         check3_desc: "Mandate a secure, encrypted corporate VPN gateway prior to parsing sensitive assets on untrusted Wi-Fi.",
+        
+        // Tips
         tips_heading: "Critical Threat Mitigations & Scenarios",
         tip1_title: "Advanced Phishing Isolation",
         tip1_quote: "\"Ignore suspicious emails, messages, or links. Delete them. Don't engage.\"",
@@ -800,8 +816,14 @@ const translations = {
         tip5_li1: "Established organizations do not conduct formal outreach through consumer spaces like @gmail.com or @yahoo.com.",
         tip5_li2: "Audit the outbound recruiter's official professional history via authenticated enterprise spaces like LinkedIn.",
         tip5_li3: "Confirm communication validity through an out-of-band contact channel established directly from the company's official site.",
-        qa_heading: "100+ Cyber Security Questions",
+        
+        // QA Section
+        qa_heading: "Cyber Security Questions",
         qa_subheading: "Tap any question to reveal the answer",
+        qa_show_more: "Show More Questions",
+        qa_show_less: "Show Less Questions",
+        
+        // Footer
         footer_mission_title: "Mission Parameters",
         footer_mission_desc: "Digital security is an unyielding, collective effort. We aim to elevate digital security across student ecosystems through early threat detection and proactive learning framework updates.",
         footer_sponsor_title: "Sponsoring Entity",
@@ -811,27 +833,43 @@ const translations = {
         footer_bottom_text: "Validate Intent. Think Before You Click. Engineered Safely by ICBT Student Group."
     },
     si: {
+        // Ticker
         ticker1_label: "බරපතල අනතුරු ඇඟවීම:",
         ticker1_text: "ප්‍රාදේශීය විශ්වවිද්‍යාල සිසුන්ගේ portal ඉලක්ක කරගත් phishing ව්‍යාපාරයක් හඳුනාගෙන ඇත.",
         ticker2_label: "සයිබර් සුරක්ෂිතතාවය:",
         ticker2_text: "Multi-Factor Authentication (MFA) මගින් ගිණුම් අත්පත් කරගැනීමේ අවදානම 99%කින් අඩු කරයි. දැන්ම සක්‍රීය කරන්න.",
         ticker3_label: "Patch යාවත්කාලීනය:",
         ticker3_text: "Chromium browsers වල zero-day exploit එකක් වාර්තා විය. ඔබේ version එක up-to-date දැයි තහවුරු කරගන්න.",
+        
+        // Hero
         hero_title: "සයිබර් දැනුවත්භාවය මධ්‍යස්ථානය",
         hero_stay: "සිටින්න", hero_alert: "සුපරීක්ෂාකාරීව.", hero_safe: "ආරක්ෂිතව.", hero_secure: "සුරක්ෂිතව.",
         hero_desc: "දියුණු zero-trust හඳුනාගැනීමේ උපාය මාර්ග වර්ධනය කරන්න සහ ඔබේ වෘත්තීය ස්ථාවරය ශක්තිමත් කරන්න. ඔබේ දැනුවත්භාවයම engineered digital ප්‍රහාරවලට එරෙහි අවසාන firewall එකයි.",
+        
+        // Search
         search_placeholder: "ප්‍රශ්නයක් අහන්න... උදා: 'සයිබර් ආරක්ෂාව' හෝ 'phishing'",
         search_no_result: "නිවැරදි ගැලපීමක් හමු නොවිණි. මෙම ජනප්‍රිය මාතෘකා වලින් එකක් උත්සාහ කරන්න:",
         search_btn: "සොයන්න",
+        search_results_count: "හමු විය",
+        search_results_for: "සඳහා ප්‍රතිඵල",
+        show_more: "තවත්",
+        more_results: "ප්‍රතිඵල බලන්න",
+        show_fewer: "අඩු ප්‍රතිඵල බලන්න",
+        
+        // Cards
         card1_tag: "උපායමාර්ගික දිශාව",
         card1_title: "ඩිජිටල් අනිවාර්යතාවය",
         card1_p1: "නවීන සයිබර් තර්ජන සාම්ප්‍රදායික firewalls ඉක්මවා පරිණාමය වේ. ඔබේ ආයතනික අනන්‍යතාවය, බුද්ධිමය දේපළ සහ මූල්‍ය වත්කම් ආරක්ෂා කිරීමට ගතික දැනුවත්භාවය මුල් ආරක්ෂක රේඛාවයි.",
         card1_p2: "කෘත්‍රිම බුද්ධිය අනිෂ්ට social engineering වැඩි කරන විට, අනපේක්ෂිත සන්නිවේදනයන් තහවුරු කිරීම අනිවාර්ය තාක්ෂණික කුසලතාවකි.",
+        
+        // Quiz
         quiz_tag: "සිමියුලේෂන්",
         quiz_title: "ක්ෂණික තර්ජන තක්සේරුව",
         quiz_question: "බාහිර ලිපිනයක් ඔබ හා සම්බන්ධ වී \"Semester_Exam_Leak.pdf.exe\" නමින් attachment එකක් සහිත හදිසි දැනුම්දීමක් එවයි. ඔබේ වහාම ප්‍රතිචාරය කුමක්ද?",
         quiz_btn: "විශ්ලේෂණය ක්‍රියාත්මක කරන්න",
         quiz_result: "<i class='fa-solid fa-circle-check'></i> <strong>විශ්ලේෂණය සම්පූර්ණයි:</strong> බරපතල තර්ජනයක් හඳුනාගන්නා ලදී! අවසානයේ ඇති <code>.exe</code> extension එක මෙය සාමාන්‍ය document එකක් නොව executable binary payload එකක් බව පෙන්වයි. මෙය ක්‍රියාත්මක කිරීම system එක අනතුරට පත් කරයි. නිවැරදි ක්‍රියාව: Security team එකට වාර්තා කර වහාම delete කරන්න.",
+        
+        // Checklist
         card3_tag: "මෙහෙයුම් සුරක්ෂිතතාවය",
         card3_title: "සම්මත ආරක්ෂක පුරුදු",
         check1_title: "MFA අනන්‍යතා තහවුරු කිරීම",
@@ -840,6 +878,8 @@ const translations = {
         check2_desc: "Zero-day දුර්වලතාවලට එරෙහිව exploitable windows වසා දැමීමට automatic vendor updates සක්‍රීය කරන්න.",
         check3_title: "Public Network Encryption",
         check3_desc: "විශ්වාසදායක නොවන Wi-Fi මත සංවේදී දත්ත භාවිත කිරීමට පෙර encrypted corporate VPN gateway එකක් අනිවාර්ය කරන්න.",
+        
+        // Tips
         tips_heading: "බරපතල තර්ජන අවම කිරීම් සහ අවස්ථා",
         tip1_title: "දියුණු Phishing හුදකලා කිරීම",
         tip1_quote: "\"සැක සහිත ඊමේල්, පණිවිඩ හෝ links නොසලකා හරින්න. ඒවා delete කරන්න. සම්බන්ධ නොවන්න.\"",
@@ -871,8 +911,14 @@ const translations = {
         tip5_li1: "ස්ථාපිත ආයතන @gmail.com හෝ @yahoo.com වැනි consumer ලිපිනවලින් නිල සන්නිවේදනය සිදු නොකරයි.",
         tip5_li2: "LinkedIn වැනි authenticated enterprise ස්ථානවල recruiter ගේ නිල වෘත්තීය ඉතිහාසය පරීක්ෂා කරන්න.",
         tip5_li3: "සමාගමේ නිල වෙබ් අඩවියෙන් සෘජුව ස්ථාපිත out-of-band සන්නිවේදන මාර්ගයක් හරහා සන්නිවේදනයේ වලංගුභාවය තහවුරු කරගන්න.",
-        qa_heading: "සයිබර් ආරක්ෂක ප්‍රශ්න 100+",
+        
+        // QA Section
+        qa_heading: "සයිබර් ආරක්ෂක ප්‍රශ්න",
         qa_subheading: "පිළිතුර බැලීමට ඕනෑම ප්‍රශ්නයක් click කරන්න",
+        qa_show_more: "තවත් ප්‍රශ්න බලන්න",
+        qa_show_less: "අඩු ප්‍රශ්න බලන්න",
+        
+        // Footer
         footer_mission_title: "මෙහෙවර පරාමිතීන්",
         footer_mission_desc: "ඩිජිටල් ආරක්ෂාව නොසැලෙන, සාමූහික උත්සාහයකි. මුල් අවධියේ තර්ජන හඳුනාගැනීම සහ ක්‍රියාශීලී අධ්‍යාපන framework updates හරහා සිසුන් අතර ඩිජිටල් ආරක්ෂාව ඉහළ නැංවීම අපගේ අරමුණයි.",
         footer_sponsor_title: "අනුග්‍රාහක ආයතනය",
@@ -882,27 +928,43 @@ const translations = {
         footer_bottom_text: "අභිප්‍රාය තහවුරු කරගන්න. Click කිරීමට පෙර සිතන්න. ICBT Student Group විසින් ආරක්ෂිතව නිර්මාණය කරන ලදී."
     },
     ta: {
+        // Ticker
         ticker1_label: "முக்கிய எச்சரிக்கை:",
         ticker1_text: "உள்ளூர் பல்கலைக்கழக மாணவர் போர்ட்டல்களை இலக்காகக் கொண்ட செயலில் உள்ள ஃபிஷிங் பிரச்சாரம் கண்டறியப்பட்டது.",
         ticker2_label: "சைபர் சுகாதாரம்:",
         ticker2_text: "பல காரணி அங்கீகாரம் (MFA) கணக்கு கையகப்படுத்தும் அபாயத்தை 99% குறைக்கிறது. இப்போதே இயக்கவும்.",
         ticker3_label: "புதுப்பிப்பு:",
         ticker3_text: "குரோமியம் உலாவிகளில் பூஜ்ஜிய-நாள் பயன்படுத்தல் புகாரளிக்கப்பட்டுள்ளது. உங்கள் பதிப்பு புதுப்பித்த நிலையில் உள்ளதா என சரிபார்க்கவும்.",
+        
+        // Hero
         hero_title: "சைபர் விழிப்புணர்வு மையம்",
         hero_stay: "இருங்கள்", hero_alert: "விழிப்புடன்.", hero_safe: "பாதுகாப்பாக.", hero_secure: "பத்திரமாக.",
         hero_desc: "மேம்பட்ட பூஜ்ஜிய-நம்பிக்கை கண்டறிதல் உத்திகளை உருவாக்கி உங்கள் தொழில்முறை நிலையை வலுப்படுத்துங்கள். பொறியியல் டிஜிட்டல் திசையன்களுக்கு எதிரான முழுமையான இறுதி ஃபயர்வால் உங்கள் விழிப்புணர்வே ஆகும்.",
+        
+        // Search
         search_placeholder: "ஒரு கேள்வியைக் கேளுங்கள்... எ.கா. 'சைபர் பாதுகாப்பு' அல்லது 'phishing'",
         search_no_result: "சரியான பொருத்தம் எதுவும் கிடைக்கவில்லை. இந்த பிரபலமான தலைப்புகளில் ஒன்றை முயற்சிக்கவும்:",
         search_btn: "தேடு",
+        search_results_count: "கிடைத்தது",
+        search_results_for: "க்கான முடிவுகள்",
+        show_more: "மேலும்",
+        more_results: "முடிவுகளை காட்டு",
+        show_fewer: "குறைவான முடிவுகளை காட்டு",
+        
+        // Cards
         card1_tag: "மூலோபாய திசையன்",
         card1_title: "டிஜிட்டல் கட்டாயம்",
         card1_p1: "நவீன சைபர் அச்சுறுத்தல்கள் பாரம்பரிய ஃபயர்வால்களுக்கு அப்பால் உருவாகின்றன. உங்கள் நிறுவன அடையாளம், அறிவுசார் சொத்து மற்றும் நிதி சொத்துக்களைப் பாதுகாக்க ஆற்றல்மிக்க விழிப்புணர்வு முதல் பாதுகாப்பு வரிசையாகும்.",
         card1_p2: "செயற்கை நுண்ணறிவு தீங்கிழைக்கும் சமூக பொறியியலை பெருக்குவதால், எதிர்பாராத தகவல்தொடர்புகளை மதிப்பீடு செய்து சரிபார்ப்பது கட்டாய தொழில்நுட்ப திறமையாகும்.",
+        
+        // Quiz
         quiz_tag: "உருவகப்படுத்துதல்",
         quiz_title: "உடனடி அச்சுறுத்தல் மதிப்பீடு",
         quiz_question: "\"Semester_Exam_Leak.pdf.exe\" என்ற இணைப்புடன் அவசர அறிவிப்பை வெளிப்புற முகவரி உங்களுக்கு அனுப்புகிறது. உங்கள் உடனடி பதில் நடவடிக்கை என்ன?",
         quiz_btn: "பகுப்பாய்வை இயக்கு",
         quiz_result: "<i class='fa-solid fa-circle-check'></i> <strong>பகுப்பாய்வு முடிந்தது:</strong> முக்கியமான அச்சுறுத்தல் அடையாளம் காணப்பட்டது! இறுதியில் உள்ள <code>.exe</code> நீட்டிப்பு இது ஒரு இயக்கக்கூடிய பைனரி பேலோட் என்பதைக் குறிக்கிறது, வழக்கமான ஆவணம் அல்ல. இதை இயக்குவது கணினியை சமரசம் செய்யும். சரியான நடவடிக்கை: பாதுகாப்பு குழுவிற்கு புகாரளித்து உடனடியாக நீக்கவும்.",
+        
+        // Checklist
         card3_tag: "செயல்பாட்டு சுகாதாரம்",
         card3_title: "நிலையான பாதுகாப்பு பழக்கங்கள்",
         check1_title: "MFA அடையாள சரிபார்ப்பு",
@@ -911,6 +973,8 @@ const translations = {
         check2_desc: "பூஜ்ஜிய-நாள் பாதிப்புகளுக்கு எதிராக பயன்படுத்தக்கூடிய சாளரங்களை மூட தானியங்கி விற்பனையாளர் புதுப்பிப்புகளை இயக்கவும்.",
         check3_title: "பொது நெட்வொர்க் குறியாக்கம்",
         check3_desc: "நம்பத்தகாத Wi-Fi இல் உணர்வுள்ள சொத்துக்களை அணுகுவதற்கு முன் பாதுகாப்பான, குறியாக்க நிறுவன VPN நுழைவாயிலை கட்டாயமாக்குங்கள்.",
+        
+        // Tips
         tips_heading: "முக்கியமான அச்சுறுத்தல் தணிப்புகள் மற்றும் காட்சிகள்",
         tip1_title: "மேம்பட்ட ஃபிஷிங் தனிமைப்படுத்தல்",
         tip1_quote: "\"சந்தேகத்திற்கிடமான மின்னஞ்சல்கள், செய்திகள் அல்லது இணைப்புகளை புறக்கணிக்கவும். அவற்றை நீக்கவும். ஈடுபட வேண்டாம்.\"",
@@ -942,8 +1006,14 @@ const translations = {
         tip5_li1: "நிறுவப்பட்ட நிறுவனங்கள் @gmail.com அல்லது @yahoo.com போன்ற நுகர்வோர் இடங்கள் மூலம் முறையான தொடர்புகளை மேற்கொள்ளாது.",
         tip5_li2: "LinkedIn போன்ற அங்கீகரிக்கப்பட்ட நிறுவன இடங்கள் மூலம் வெளிச்செல்லும் ஆட்சேர்ப்பாளரின் அதிகாரப்பூர்வ தொழில்முறை வரலாற்றை தணிக்கை செய்யவும்.",
         tip5_li3: "நிறுவனத்தின் அதிகாரப்பூர்வ தளத்திலிருந்து நேரடியாக நிறுவப்பட்ட புற-இசைக்குழு தொடர்பு சேனல் மூலம் தொடர்பு செல்லுபடியை உறுதிப்படுத்தவும்.",
-        qa_heading: "100+ சைபர் பாதுகாப்பு கேள்விகள்",
+        
+        // QA Section
+        qa_heading: "சைபர் பாதுகாப்பு கேள்விகள்",
         qa_subheading: "பதிலைக் காட்ட எந்த கேள்வியையும் தட்டவும்",
+        qa_show_more: "மேலும் கேள்விகளை காட்டு",
+        qa_show_less: "குறைவான கேள்விகளை காட்டு",
+        
+        // Footer
         footer_mission_title: "பணி அளவுருக்கள்",
         footer_mission_desc: "டிஜிட்டல் பாதுகாப்பு என்பது உறுதியான, கூட்டு முயற்சியாகும். ஆரம்பகால அச்சுறுத்தல் கண்டறிதல் மற்றும் செயலூக்கமான கற்றல் கட்டமைப்பு புதுப்பிப்புகள் மூலம் மாணவர் சூழல்களில் டிஜிட்டல் பாதுகாப்பை உயர்த்துவதை நாங்கள் நோக்கமாகக் கொண்டுள்ளோம்.",
         footer_sponsor_title: "ஆதரவு அமைப்பு",
@@ -960,22 +1030,36 @@ for (let i = 1; i <= faqData.length; i++) {
         translations.en[`qa${i}_q`] = faqData[i-1]?.question || `Question ${i}`;
         translations.en[`qa${i}_a`] = faqData[i-1]?.answer || `Answer ${i}`;
     }
+    // For SI and TA, use English as fallback if not translated
+    if (!translations.si[`qa${i}_q`]) {
+        translations.si[`qa${i}_q`] = translations.en[`qa${i}_q`];
+        translations.si[`qa${i}_a`] = translations.en[`qa${i}_a`];
+    }
+    if (!translations.ta[`qa${i}_q`]) {
+        translations.ta[`qa${i}_q`] = translations.en[`qa${i}_q`];
+        translations.ta[`qa${i}_a`] = translations.en[`qa${i}_a`];
+    }
 }
 
 // ============================================================
-// LANGUAGE SWITCHING
+// LANGUAGE SWITCHING - UPDATED TO TRANSLATE ENTIRE PAGE
 // ============================================================
 
 let currentLang = 'en';
+let qaCurrentPage = 1;
+const qaPerPage = 20;
+let totalQAPages = 0;
 
 function applyLanguage(lang) {
     currentLang = lang;
     const t = translations[lang];
 
+    // Update language button states
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
+    // Translate ALL elements with data-i18n attribute (full page)
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (t[key] !== undefined) {
@@ -987,18 +1071,22 @@ function applyLanguage(lang) {
         }
     });
 
+    // Update search placeholder specifically
     const searchInput = document.getElementById('search-input');
     if (searchInput && t.search_placeholder) {
         searchInput.placeholder = t.search_placeholder;
     }
 
+    // Update quiz result if visible
     const quizResult = document.getElementById('quiz-result');
     if (quizResult && quizResult.style.display === 'block') {
         quizResult.innerHTML = t.quiz_result || "Analysis Complete: Critical threat identified!";
     }
 
+    // Rebuild QA grid with current language (with pagination)
     buildQAGrid();
 
+    // Re-run search if there's a query
     const searchInputValue = document.getElementById('search-input')?.value;
     if (searchInputValue && searchInputValue.trim()) {
         runSearch();
@@ -1020,27 +1108,35 @@ function checkAnswer() {
 }
 
 // ============================================================
-// QA ACCORDION BUILD - Shows all questions
+// QA ACCORDION BUILD - WITH PAGINATION (20 per page)
 // ============================================================
 
 function buildQAGrid() {
     const grid = document.getElementById('qa-grid');
     const t = translations[currentLang] || translations.en;
     
-    let html = '';
-    // Show all questions (up to 100)
-    const totalQuestions = Math.min(faqData.length, 100);
+    const totalQuestions = faqData.length;
+    totalQAPages = Math.ceil(totalQuestions / qaPerPage);
     
-    for (let i = 1; i <= totalQuestions; i++) {
-        const qKey = `qa${i}_q`;
-        const aKey = `qa${i}_a`;
-        const question = t[qKey] || faqData[i-1]?.question || `Question ${i}`;
-        const answer = t[aKey] || faqData[i-1]?.answer || `Answer ${i}`;
-        const num = String(i).padStart(2, '0');
+    // Ensure current page is valid
+    if (qaCurrentPage > totalQAPages) qaCurrentPage = totalQAPages;
+    if (qaCurrentPage < 1) qaCurrentPage = 1;
+    
+    const startIndex = (qaCurrentPage - 1) * qaPerPage;
+    const endIndex = Math.min(startIndex + qaPerPage, totalQuestions);
+    
+    let html = '';
+    for (let i = startIndex; i < endIndex; i++) {
+        const index = i + 1;
+        const qKey = `qa${index}_q`;
+        const aKey = `qa${index}_a`;
+        const question = t[qKey] || faqData[i]?.question || `Question ${index}`;
+        const answer = t[aKey] || faqData[i]?.answer || `Answer ${index}`;
+        const num = String(index).padStart(2, '0');
 
         html += `
-            <div class="qa-item" id="qa-item-${i}">
-                <div class="qa-question" onclick="toggleQA(${i})">
+            <div class="qa-item" id="qa-item-${index}">
+                <div class="qa-question" onclick="toggleQA(${index})">
                     <span><span class="qa-num">${num}.</span> ${question}</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
@@ -1048,7 +1144,41 @@ function buildQAGrid() {
             </div>
         `;
     }
-    grid.innerHTML = html;
+    
+    // Add pagination controls
+    let paginationHtml = '';
+    if (totalQuestions > qaPerPage) {
+        paginationHtml = `
+            <div style="display:flex; justify-content:center; align-items:center; gap:12px; margin-top:25px; flex-wrap:wrap;">
+                <button onclick="qaGoToPage(${qaCurrentPage - 1})" ${qaCurrentPage <= 1 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''} 
+                        style="background:rgba(0,242,254,0.1); color:var(--accent-primary); border:1px solid rgba(0,242,254,0.3); padding:8px 20px; border-radius:8px; cursor:pointer; font-weight:600; font-size:13px; transition:all 0.3s;">
+                    <i class="fa-solid fa-chevron-left"></i> ${t.qa_previous || 'Previous'}
+                </button>
+                <span style="color:var(--text-muted); font-size:14px;">
+                    ${t.qa_page || 'Page'} ${qaCurrentPage} ${t.qa_of || 'of'} ${totalQAPages}
+                </span>
+                <button onclick="qaGoToPage(${qaCurrentPage + 1})" ${qaCurrentPage >= totalQAPages ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''} 
+                        style="background:rgba(0,242,254,0.1); color:var(--accent-primary); border:1px solid rgba(0,242,254,0.3); padding:8px 20px; border-radius:8px; cursor:pointer; font-weight:600; font-size:13px; transition:all 0.3s;">
+                    ${t.qa_next || 'Next'} <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            <div style="text-align:center; margin-top:12px; font-size:12px; color:var(--text-muted);">
+                ${t.qa_showing || 'Showing'} ${startIndex + 1}-${endIndex} ${t.qa_of || 'of'} ${totalQuestions} ${t.qa_questions || 'questions'}
+            </div>
+        `;
+    }
+    
+    grid.innerHTML = html + paginationHtml;
+}
+
+function qaGoToPage(page) {
+    const totalQuestions = faqData.length;
+    totalQAPages = Math.ceil(totalQuestions / qaPerPage);
+    if (page < 1 || page > totalQAPages) return;
+    qaCurrentPage = page;
+    buildQAGrid();
+    // Scroll to QA section
+    document.querySelector('.qa-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function toggleQA(index) {
