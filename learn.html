@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Library — Cyber Awareness Hub (EN / සිං / த)</title>
+    <meta name="description" content="Eight core cyber safety topics: phishing, social engineering, passwords, malware, privacy and more — with warning signs and step-by-step defenses in English, Sinhala and Tamil.">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#04070f">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cyber Awareness Hub — Exito">
+    <meta property="og:title" content="Threat Library — Cyber Awareness Hub">
+    <meta property="og:description" content="Understand common scam tricks and the simple habits that stop them. Trilingual: EN සිං த.">
+    <meta property="og:image" content="assets/img/isg-icbt-light.png">
+    <meta name="twitter:card" content="summary">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'">
+
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+    <div class="bg-fx" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="index.html">
+                <img src="assets/img/isg-icbt-light.png"
+                     data-logo-dark="assets/img/isg-icbt-light.png"
+                     data-logo-light="assets/img/isaca-dark-black.png"
+                     alt="ISACA Student Group — ICBT Campus logo">
+                <span class="brand-name">Cyber Awareness Hub<small>ISG • ICBT Campus</small></span>
+            </a>
+            <nav class="site-nav" id="primary-nav" aria-label="Primary">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                    <li><a href="learn.html" data-i18n="nav_learn">Learn</a></li>
+                    <li><a href="quiz.html" data-i18n="nav_quiz">Quiz</a></li>
+                    <li><a href="faq.html" data-i18n="nav_faq">FAQ</a></li>
+                </ul>
+                <div class="lang-group drawer-lang" role="group">
+                    <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
+                    <button type="button" class="lang-btn" data-lang-btn="si">සිං</button>
+                    <button type="button" class="lang-btn" data-lang-btn="ta">த</button>
+                </div>
+            </nav>
+            <div class="header-actions">
+                <div class="lang-group" role="group" data-i18n-aria="lang_aria" aria-label="Change language">
+                    <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
+                    <button type="button" class="lang-btn" data-lang-btn="si">සිං</button>
+                    <button type="button" class="lang-btn" data-lang-btn="ta">த</button>
+                </div>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-pressed="false">
+                    <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                    <i class="fa-solid fa-sun" aria-hidden="true"></i>
+                </button>
+                <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-i18n-aria="menu_open" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="ticker-bar">
+        <div class="ticker" id="ticker-content"></div>
+    </div>
+
+    <main id="main">
+        <section class="page-hero">
+            <div class="wrap">
+                <span class="eyebrow" data-i18n="nav_learn">Learn</span>
+                <h1 data-i18n="learn_title">Threat Library</h1>
+                <p data-i18n="learn_sub">Understand the most common tricks scammers use — and the simple habits that stop them.</p>
+            </div>
+        </section>
+
+        <section class="section pt-t3">
+            <div class="wrap learn-layout">
+                <!-- sticky chips, built by learn.js -->
+                <nav class="sidebar" id="learn-sidebar" aria-label="Topic list"></nav>
+
+                <!-- topic sections + scenario checks, built by learn.js -->
+                <div class="learn-content">
+                    <div id="learn-sections"></div>
+                    <a class="back-top" href="#main"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><span data-i18n="back_top">Back to top</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section pt-t4">
+            <div class="wrap">
+                <div class="section-head center">
+                    <h2 data-i18n="habits_h">Everyday defensive habits</h2>
+                    <p data-i18n="habits_intro">Three small habits that block most everyday attacks:</p>
+                </div>
+                <!-- habit cards, built by learn.js -->
+                <div class="habits-grid" id="habits-grid"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-grid">
+            <div>
+                <h3 data-i18n="foot1_h">About this project</h3>
+                <p data-i18n="foot1_p">Cyber Awareness Hub is an educational project by the ISACA Student Group of ICBT Campus. Our goal is to help every student recognize scams and stay safe online — in English, Sinhala, and Tamil.</p>
+            </div>
+            <div>
+                <h3 data-i18n="foot2_h">Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i><span data-i18n="nav_home">Home</span></a></li>
+                    <li><a href="learn.html"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span data-i18n="nav_learn">Learn</span></a></li>
+                    <li><a href="quiz.html"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span data-i18n="nav_quiz">Quiz</span></a></li>
+                    <li><a href="faq.html"><i class="fa-solid fa-comments" aria-hidden="true"></i><span data-i18n="nav_faq">FAQ</span></a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 data-i18n="foot3_h">Connect</h3>
+                <p data-i18n="foot3_p">Follow our community for events, workshops, and awareness campaigns.</p>
+                <div class="socials">
+                    <a href="https://facebook.com/icbt.isg" target="_blank" rel="noopener noreferrer" data-i18n-aria="fb_aria" aria-label="ISG ICBT on Facebook">
+                        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.instagram.com/icbt.isg" target="_blank" rel="noopener noreferrer" data-i18n-aria="ig_aria" aria-label="ISG ICBT on Instagram">
+                        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/isaca" target="_blank" rel="noopener noreferrer" data-i18n-aria="li_aria" aria-label="ISACA on LinkedIn">
+                        <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="wrap footer-bottom">
+            <p>© <span data-year>2026</span> — <span data-i18n="foot_bottom">ISACA Student Group — ICBT Campus. Built for education, not profit. Think before you click.</span></p>
+            <small class="foot-note" data-i18n="foot_note">This site is for educational awareness only and does not replace official security guidance from your institution.</small>
+        </div>
+    </footer>
+
+    <script src="assets/js/data-ui.js" defer></script>
+    <script src="assets/js/data-content.js" defer></script>
+    <script src="assets/js/i18n.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/learn.js" defer></script>
+</body>
+</html>

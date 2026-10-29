@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# editor noise
+*.swp
+*~
+
+# local test servers / scratch
+/tmp/
+*.log

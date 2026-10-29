@@ -1,270 +1,216 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark" data-lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Awareness Hub - ISACA Student Group ICBT Campus</title>
+    <title>Cyber Awareness Hub — Learn to spot scams (EN / සිං / த)</title>
+    <meta name="description" content="Free cyber awareness hub by the ISACA Student Group of ICBT Campus. Learn to spot phishing, scams and weak passwords — in English, Sinhala and Tamil.">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#04070f">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
-        rel="stylesheet">
+    <!-- Social cards -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cyber Awareness Hub — Exito">
+    <meta property="og:title" content="Cyber Awareness Hub — Learn to spot scams">
+    <meta property="og:description" content="Phishing, scams, passwords and privacy — explained in simple English, Sinhala and Tamil. Free for every student.">
+    <meta property="og:image" content="assets/img/isg-icbt-light.png">
+    <meta name="twitter:card" content="summary">
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Content Security Policy: everything self-hosted, no third-party requests -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+    <div class="bg-fx" aria-hidden="true"></div>
 
-    <!-- Live Cyber Threat Simulation Ticker -->
-    <div class="ticker-wrap">
-        <div class="ticker" id="ticker-content"></div>
-    </div>
-
-    <!-- Header Section -->
-    <header>
-        <div class="logo-area">
-            <img src="isg-icbt-light.png" alt="ISACA Student Group ICBT Campus Logo" class="logo-image">
-            <div class="logo-text">
-                <h1>ISACA Student Group</h1>
-                <p>ICBT Campus</p>
-            </div>
-        </div>
-        <div class="header-controls">
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang-btn="en">EN</button>
-                <button class="lang-btn" data-lang-btn="si">සිං</button>
-                <button class="lang-btn" data-lang-btn="ta">த</button>
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="index.html">
+                <img src="assets/img/isg-icbt-light.png"
+                     data-logo-dark="assets/img/isg-icbt-light.png"
+                     data-logo-light="assets/img/isaca-dark-black.png"
+                     alt="ISACA Student Group — ICBT Campus logo">
+                <span class="brand-name">Cyber Awareness Hub<small>ISG • ICBT Campus</small></span>
+            </a>
+            <nav class="site-nav" id="primary-nav" aria-label="Primary">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                    <li><a href="learn.html" data-i18n="nav_learn">Learn</a></li>
+                    <li><a href="quiz.html" data-i18n="nav_quiz">Quiz</a></li>
+                    <li><a href="faq.html" data-i18n="nav_faq">FAQ</a></li>
+                </ul>
+                <div class="lang-group drawer-lang" role="group">
+                    <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
+                    <button type="button" class="lang-btn" data-lang-btn="si">සිං</button>
+                    <button type="button" class="lang-btn" data-lang-btn="ta">த</button>
+                </div>
+            </nav>
+            <div class="header-actions">
+                <div class="lang-group" role="group" data-i18n-aria="lang_aria" aria-label="Change language">
+                    <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
+                    <button type="button" class="lang-btn" data-lang-btn="si">සිං</button>
+                    <button type="button" class="lang-btn" data-lang-btn="ta">த</button>
+                </div>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-pressed="false">
+                    <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                    <i class="fa-solid fa-sun" aria-hidden="true"></i>
+                </button>
+                <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-i18n-aria="menu_open" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Banner Section -->
-    <section class="hero-section">
-        <h1 class="hero-title" data-i18n="hero_title">Cyber Awareness Hub</h1>
-        <div class="hero-subtitle">
-            <span data-i18n="hero_stay">Stay</span> <span class="alert" data-i18n="hero_alert">Alert.</span> <span class="safe" data-i18n="hero_safe">Safe.</span> <span class="secure" data-i18n="hero_secure">Secure.</span>
-        </div>
-        <p class="hero-desc" data-i18n="hero_desc">
-            Develop advanced zero-trust detection strategies and strengthen your professional posture. Your awareness
-            remains the absolute final firewall against engineered digital vectors.
-        </p>
-    </section>
+    <!-- ============ AWARENESS TICKER ============ -->
+    <div class="ticker-bar" aria-hidden="false">
+        <div class="ticker" id="ticker-content"></div>
+    </div>
 
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="search-box">
-            <input type="text" id="search-input" data-i18n-placeholder="search_placeholder" placeholder="Ask a question... e.g. 'what is phishing' or 'MFA'"
-                onkeyup="if(event.key === 'Enter') runSearch()">
-            <button onclick="runSearch()">
-                <i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="search_btn">Search</span>
-            </button>
-        </div>
-        <div id="search-results"></div>
-    </section>
-
-    <!-- Main Dynamic Container -->
-    <main class="main-container">
-
-        <!-- Left Sidebar Column -->
-        <div class="sidebar-cards">
-
-            <!-- Strategic Overview Card -->
-            <div class="info-card">
-                <span class="card-title-tags" data-i18n="tag_strategic">Strategic Vector</span>
-                <h3 data-i18n="card1_title">The Digital Imperative</h3>
-                <p data-i18n="card1_p1">Modern cyber threats evolve beyond traditional firewalls. Dynamic awareness stands as the initial line of defense to shield your corporate identity, intellectual property, and financial assets.</p>
-                <p data-i18n="card1_p2">With artificial intelligence amplifying malicious social engineering, evaluating and verifying unexpected communication is a mandatory tech skill.</p>
-            </div>
-
-            <!-- Interactive Threat Intelligence Challenge -->
-            <div class="info-card quiz-container">
-                <span class="card-title-tags" style="background: rgba(0, 242, 254, 0.15); color: var(--accent-primary);"
-                    data-i18n="tag_simulation">Simulation</span>
-                <h3 data-i18n="quiz_title">Instant Threat Assessment</h3>
-                <p id="quiz-question" data-i18n="quiz_question">An external address contacts you with an urgent
-                    notification containing an attachment titled "Semester_Exam_Leak.pdf.exe". What is your immediate
-                    triage response?</p>
-                <button class="quiz-btn" onclick="checkAnswer()">
-                    <i class="fa-solid fa-shield-halved"></i> <span data-i18n="quiz_btn">Execute Analysis</span>
-                </button>
-                <div id="quiz-result"></div>
-            </div>
-
-            <!-- Core Cyber Habits Checklist -->
-            <div class="info-card">
-                <span class="card-title-tags" data-i18n="tag_hygiene">Operational Hygiene</span>
-                <h3 data-i18n="checklist_title">Standard Defensive Habits</h3>
-
-                <div class="checklist-item">
-                    <div class="checklist-icon"><i class="fa-solid fa-key"></i></div>
-                    <div class="checklist-content">
-                        <h4 data-i18n="check1_h">MFA Identity Verification</h4>
-                        <p data-i18n="check1_p">Enforce cryptographically secure mobile authenticator tokens over vulnerable SMS verification.</p>
+    <main id="main">
+        <!-- ============ HERO + 3D GLOBE ============ -->
+        <section class="hero">
+            <div class="wrap hero-grid">
+                <div>
+                    <p class="hero-badge"><span class="dot" aria-hidden="true"></span><span data-i18n="hero_badge">ISACA Student Group • ICBT Campus</span></p>
+                    <h1 class="hero-title-accent" data-i18n="hero_title">Cyber Awareness Hub</h1>
+                    <p class="hero-line">
+                        <span data-i18n="hero_stay">Stay</span> <span class="accent" data-i18n="hero_alert">Alert.</span>
+                        <span data-i18n="hero_stay">Stay</span> <span data-i18n="hero_safe">Safe.</span>
+                        <span data-i18n="hero_stay">Stay</span> <span class="accent-2" data-i18n="hero_secure">Secure.</span>
+                    </p>
+                    <p class="hero-desc" data-i18n="hero_desc">Learn how to spot scams, build strong passwords, and protect your personal data — in simple English, Sinhala, and Tamil. Free for every student.</p>
+                    <div class="hero-cta">
+                        <a class="btn btn-primary" href="learn.html"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span data-i18n="hero_cta1">Start Learning</span></a>
+                        <a class="btn btn-ghost" href="quiz.html"><i class="fa-solid fa-bolt" aria-hidden="true"></i><span data-i18n="hero_cta2">Take the Quiz</span></a>
                     </div>
                 </div>
-
-                <div class="checklist-item">
-                    <div class="checklist-icon"><i class="fa-solid fa-rotate"></i></div>
-                    <div class="checklist-content">
-                        <h4 data-i18n="check2_h">Patch Lifecycle Management</h4>
-                        <p data-i18n="check2_p">Enable automatic vendor updates to close exploitable windows against zero-day vulnerabilities.</p>
-                    </div>
-                </div>
-
-                <div class="checklist-item">
-                    <div class="checklist-icon"><i class="fa-solid fa-wifi"></i></div>
-                    <div class="checklist-content">
-                        <h4 data-i18n="check3_h">Public Network Encryption</h4>
-                        <p data-i18n="check3_p">Mandate a secure, encrypted corporate VPN gateway prior to parsing sensitive assets on untrusted Wi-Fi.</p>
-                    </div>
+                <div class="globe-wrap">
+                    <div class="globe-orbit" aria-hidden="true"></div>
+                    <canvas id="globe-canvas" class="globe-canvas" aria-label="Interactive network globe — drag to rotate"></canvas>
+                    <p class="hero-hint"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i><span data-i18n="hero_hint">Drag the globe to explore</span></p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Right Detailed Column -->
-        <div class="tips-container">
-            <h2 data-i18n="tips_title">Critical Threat Mitigations & Scenarios</h2>
+        <!-- ============ REAL-COUNT STATS ============ -->
+        <section class="section pt-t1">
+            <div class="wrap">
+                <div class="stats-strip glass reveal" data-tilt>
+                    <div class="stat"><div class="stat-num" data-count="8">0</div><div class="stat-label" data-i18n="s1_l">Core topics</div></div>
+                    <div class="stat"><div class="stat-num" data-count="30">0</div><div class="stat-label" data-i18n="s2_l">FAQ answers</div></div>
+                    <div class="stat"><div class="stat-num" data-count="24">0</div><div class="stat-label" data-i18n="s3_l">Quiz questions</div></div>
+                    <div class="stat"><div class="stat-num" data-count="3">0</div><div class="stat-label" data-i18n="s4_l">Languages</div></div>
+                </div>
+            </div>
+        </section>
 
-            <!-- Vector 1 -->
-            <div class="tip-block" style="border-left-color: #ef4444;">
-                <div class="tip-visual"><i class="fa-solid fa-envelope-open-text"></i></div>
-                <div class="tip-body">
-                    <h2 data-i18n="tip1_h">Advanced Phishing Isolation</h2>
-                    <div class="original-text" data-i18n="tip1_quote">"Ignore suspicious emails, messages, or links. Delete them. Don't engage."</div>
-                    <div class="expanded-details">
-                        <strong data-i18n="tip1_strong">Defensive Strategies:</strong>
-                        <ul>
-                            <li data-i18n="tip1_li1">Interacting with 'Unsubscribe' hooks embedded inside targeted phishing loops validates delivery vectors directly to attackers.</li>
-                            <li data-i18n="tip1_li2">Perform cryptographic header verification and SPF/DKIM validation if corporate origin is ambiguous.</li>
-                            <li data-i18n="tip1_li3">Route threat indicators to security operations centers using platform reporting plugins immediately.</li>
-                        </ul>
+        <!-- ============ TOPICS GRID (rendered by home.js) ============ -->
+        <section class="section" id="topics">
+            <div class="wrap">
+                <div class="section-head center">
+                    <span class="eyebrow">Learn</span>
+                    <h2 data-i18n="topics_title">What do you want to learn today?</h2>
+                    <p data-i18n="topics_sub">Pick a topic and learn how to stay safe — with real examples you can recognize instantly.</p>
+                </div>
+                <div class="topics-grid" id="topics-grid"></div>
+            </div>
+        </section>
+
+        <!-- ============ SEARCH ENGINE ============ -->
+        <section class="section" id="search">
+            <div class="wrap">
+                <div class="search-panel reveal">
+                    <label class="eyebrow" for="search-input" data-i18n="search_label">Search cyber safety topics</label>
+                    <div class="search-row">
+                        <input type="search" id="search-input" autocomplete="off" spellcheck="false"
+                               data-i18n-placeholder="search_placeholder"
+                               placeholder="Ask a question... e.g. 'what is phishing' or 'MFA'">
+                        <button class="btn btn-primary" id="search-btn" type="button" data-i18n="search_btn">Search</button>
+                    </div>
+                    <div id="search-results" class="search-results" aria-live="polite"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ QUIZ TEASER ============ -->
+        <section class="section pt-t5">
+            <div class="wrap">
+                <div class="teaser reveal" data-tilt>
+                    <div>
+                        <span class="teaser-tag" data-i18n="teaser_tag">Interactive</span>
+                        <h2 data-i18n="teaser_title">Test yourself in 3 minutes</h2>
+                        <p data-i18n="teaser_p">Can you spot a scam message? Take the quick quiz and find out — no sign-up needed.</p>
+                    </div>
+                    <a class="btn btn-primary" href="quiz.html"><span data-i18n="teaser_cta">Start the quiz</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CTA BAND ============ -->
+        <section class="section">
+            <div class="wrap">
+                <div class="cta-band reveal">
+                    <h2 data-i18n="cta_title">Ready to test your scam radar?</h2>
+                    <p data-i18n="cta_p">Take the 3-minute quiz, or browse all 30 essential questions.</p>
+                    <div class="cta-actions">
+                        <a class="btn btn-primary" href="quiz.html" data-i18n="cta_btn1">Take the quiz</a>
+                        <a class="btn btn-ghost" href="faq.html" data-i18n="cta_btn2">Browse the FAQ</a>
                     </div>
                 </div>
             </div>
-
-            <!-- Vector 2 -->
-            <div class="tip-block" style="border-left-color: #f59e0b;">
-                <div class="tip-visual"><i class="fa-solid fa-id-card"></i></div>
-                <div class="tip-body">
-                    <h2 data-i18n="tip2_h">Enforcing PII Integrity Boundaries</h2>
-                    <div class="original-text" data-i18n="tip2_quote">"Never share any personal information or bank details for job offers you have not applied for."</div>
-                    <div class="expanded-details">
-                        <strong data-i18n="tip2_strong">Identity Protection Blueprint:</strong>
-                        <ul>
-                            <li data-i18n="tip2_li1">Restrain the upload of national identity metrics (NIC, Passports, or transcripts) into external, unverified form fields.</li>
-                            <li data-i18n="tip2_li2">Legitimate administrators and institutions maintain standard communication channels; they never solicit high-privilege OTPs over arbitrary calls.</li>
-                            <li data-i18n="tip2_li3">Minimize your open intelligence profile by filtering personal metadata exposures across secondary social footprints.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vector 3 -->
-            <div class="tip-block" style="border-left-color: #3b82f6;">
-                <div class="tip-visual"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                <div class="tip-body">
-                    <h2 data-i18n="tip3_h">Neutralizing Typo-Squatting Vectors</h2>
-                    <div class="original-text" data-i18n="tip3_quote">"Fake job offers often have spelling errors and grammatical mistakes. Stay alert!"</div>
-                    <div class="expanded-details">
-                        <strong data-i18n="tip3_strong">Visual Validation Metrics:</strong>
-                        <ul>
-                            <li data-i18n="tip3_li1">Inspect address syntax deeply for lookalike indicators (such as substituting characters or extensions like `.net`/`.xyz` for corporate domains).</li>
-                            <li data-i18n="tip3_li2">Audit full payload extensions carefully to detect double-extension masquerades like `invoice.pdf.exe`.</li>
-                            <li data-i18n="tip3_li3">High-velocity threat syntax demanding instantaneous operational responses usually indicates social engineering.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vector 4 -->
-            <div class="tip-block" style="border-left-color: #10b981;">
-                <div class="tip-visual"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                <div class="tip-body">
-                    <h2 data-i18n="tip4_h">Detecting Financial Advance-Fee Scams</h2>
-                    <div class="original-text" data-i18n="tip4_quote">"Legitimate companies never ask for money. If it sounds too good to be true, it probably is."</div>
-                    <div class="expanded-details">
-                        <strong data-i18n="tip4_strong">Financial Security Safeguards:</strong>
-                        <ul>
-                            <li data-i18n="tip4_li1">Legitimate talent onboarding systems do not request onboarding deposits, software buy-backs, or security compliance tracking fees.</li>
-                            <li data-i18n="tip4_li2">Exercise strong skepticism toward task-automation workflows offering heavy returns for small manual actions.</li>
-                            <li data-i18n="tip4_li3">Query official corporate business registers independently before transmitting capital to any third-party gateway.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vector 5 -->
-            <div class="tip-block" style="border-left-color: #8b5cf6;">
-                <div class="tip-visual"><i class="fa-solid fa-user-check"></i></div>
-                <div class="tip-body">
-                    <h2 data-i18n="tip5_h">Assessing Outbound Domain Authority</h2>
-                    <div class="original-text" data-i18n="tip5_quote">"Genuine offers are sent from company-registered email addresses. Always verify before you trust."</div>
-                    <div class="expanded-details">
-                        <strong data-i18n="tip5_strong">Enterprise Validation Protocol:</strong>
-                        <ul>
-                            <li data-i18n="tip5_li1">Established organizations do not conduct formal B2C or B2B outreach through consumer spaces like `@gmail.com` or `@yahoo.com`.</li>
-                            <li data-i18n="tip5_li2">Audit the outbound recruiter's official professional history via authenticated enterprise spaces like LinkedIn.</li>
-                            <li data-i18n="tip5_li3">Confirm communication validity through an out-of-band contact channel established directly from the target company's primary corporate landing space.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        </section>
     </main>
 
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2 class="faq-title" data-i18n="faq_title">30 Essential Cyber Awareness Questions</h2>
-        <p class="faq-subtitle" data-i18n="faq_subtitle">Quick answers to the most important cyber security questions every student should know.</p>
-        <div class="faq-list" id="faq-list"></div>
-        <div class="faq-pagination">
-            <button id="faq-prev-btn" disabled onclick="changeFAQPage(-1)"><i class="fa-solid fa-chevron-left"></i> <span data-i18n="previous">Previous</span></button>
-            <span id="faq-page-indicator">Page 1 / 6</span>
-            <button id="faq-next-btn" onclick="changeFAQPage(1)"><span data-i18n="next">Next</span> <i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4 data-i18n="foot1_h">Mission Parameters</h4>
-                <p data-i18n="foot1_p">Digital security is an unyielding, collective effort. We aim to elevate digital security across student ecosystems through early threat detection and proactive learning framework updates.</p>
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+        <div class="wrap footer-grid">
+            <div>
+                <h3 data-i18n="foot1_h">About this project</h3>
+                <p data-i18n="foot1_p">Cyber Awareness Hub is an educational project by the ISACA Student Group of ICBT Campus. Our goal is to help every student recognize scams and stay safe online — in English, Sinhala, and Tamil.</p>
             </div>
-            <div class="footer-col">
-                <h4 data-i18n="foot2_h">Sponsoring Entity</h4>
-                <p><strong>ISACA STUDENT GROUP</strong><br>ICBT CAMPUS<br><span data-i18n="foot2_p">Empowering Minds. Fortifying Digital Resilience.</span></p>
+            <div>
+                <h3 data-i18n="foot2_h">Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i><span data-i18n="nav_home">Home</span></a></li>
+                    <li><a href="learn.html"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span data-i18n="nav_learn">Learn</span></a></li>
+                    <li><a href="quiz.html"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span data-i18n="nav_quiz">Quiz</span></a></li>
+                    <li><a href="faq.html"><i class="fa-solid fa-comments" aria-hidden="true"></i><span data-i18n="nav_faq">FAQ</span></a></li>
+                </ul>
             </div>
-            <div class="footer-col">
-                <h4 data-i18n="foot3_h">Digital Touchpoints</h4>
-                <p data-i18n="foot3_p">Connect with our engineering community for technical meetups, updates, and upcoming structural hackathons.</p>
-                <div class="social-links">
-                    <a href="https://facebook.com/icbt.isg" target="_blank" title="Facebook">
-                        <i class="fa-brands fa-facebook-f"></i>
+            <div>
+                <h3 data-i18n="foot3_h">Connect</h3>
+                <p data-i18n="foot3_p">Follow our community for events, workshops, and awareness campaigns.</p>
+                <div class="socials">
+                    <a href="https://facebook.com/icbt.isg" target="_blank" rel="noopener noreferrer" data-i18n-aria="fb_aria" aria-label="ISG ICBT on Facebook">
+                        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
                     </a>
-                    <a href="https://www.instagram.com/icbt.isg" target="_blank" title="Instagram">
-                        <i class="fa-brands fa-instagram"></i>
+                    <a href="https://www.instagram.com/icbt.isg" target="_blank" rel="noopener noreferrer" data-i18n-aria="ig_aria" aria-label="ISG ICBT on Instagram">
+                        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
                     </a>
-                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.linkedin.com/company/isaca" target="_blank" rel="noopener noreferrer" data-i18n-aria="li_aria" aria-label="ISACA on LinkedIn">
+                        <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="footer-logo-container">
-                <img src="isg-icbt-light.png" alt="ISACA Student Group Logo" class="footer-logo">
-            </div>
-            <p><i class="fa-solid fa-lock" style="color: var(--accent-primary);"></i> <span data-i18n="foot_bottom">Validate Intent. Think Before You Click. Engineered Safely by ICBT Student Group. © 2026</span></p>
+        <div class="wrap footer-bottom">
+            <p>© <span data-year>2026</span> — <span data-i18n="foot_bottom">ISACA Student Group — ICBT Campus. Built for education, not profit. Think before you click.</span></p>
+            <small class="foot-note" data-i18n="foot_note">This site is for educational awareness only and does not replace official security guidance from your institution.</small>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- language packs → content → shared i18n → shared UI → page script (order matters) -->
+    <script src="assets/js/data-ui.js" defer></script>
+    <script src="assets/js/data-content.js" defer></script>
+    <script src="assets/js/i18n.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/home.js" defer></script>
 </body>
-
 </html>
