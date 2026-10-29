@@ -1,5 +1,15 @@
 # Cyber Awareness Hub — Exito
 
+🚀 **[Open the live site](https://ridma-kithara.github.io/Cyber-Awareness-Hub-Exito-/)**
+
+![vanilla HTML / CSS / JS](https://img.shields.io/badge/frontend-vanilla%20HTML%20%2F%20CSS%20%2F%20JS-22d3ee)
+![strict CSP](https://img.shields.io/badge/security-strict%20CSP%2C%20zero%20third%20party-4facfe)
+![trilingual](https://img.shields.io/badge/languages-English%20%7C%20%E0%B7%83%E0%B7%92%E0%B7%82%E0%B7%84%E0%B7%BD%20%7C%20%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D-a78bfa)
+
+<p align="center">
+  <img src="docs/screenshots/home-dark.png" alt="Cyber Awareness Hub home page — 3D network globe hero" width="860">
+</p>
+
 A free, tri-lingual (English / සිංහල / தமிழ்) cyber-security education platform built by the **ISACA Student Group of ICBT Campus**. It teaches students how to recognize phishing, scams, weak passwords and privacy mistakes — in simple language, with honest content only.
 
 ## What's inside
@@ -57,23 +67,12 @@ Or just open `index.html` in a browser.
 ├── quiz.html             # quiz flow (pick → run → result)
 ├── faq.html              # 30-question FAQ
 ├── 404.html              # not-found page
+├── docs/screenshots/     # screenshots used by this README & the Wiki
 ├── .nojekyll             # bypass GitHub Pages Jekyll
 └── assets/
-    ├── css/              # style.css (design system), fonts.css (18 woff2 @font-face)
-    ├── fonts/            # self-hosted woff2 (Jakarta, Space Grotesk, Noto Sinhala/Tamil)
-    ├── fonts/fa/         # Font Awesome 6.5.2 woff2 subset
-    ├── img/              # logos (resized), favicon
-    ├── vendor/           # self-hosted Font Awesome CSS
-    └── js/
-        ├── data-ui.js    # trilingual UI strings ({n} {t} {c} placeholders)
-        ├── data-content.js  # topics, habits, FAQ bank, search bank, quiz bank
-        ├── i18n.js       # language system + shared translations
-        ├── ui.js         # theme, nav, ticker, reveals, counters, tilt
-        ├── home.js       # globe + topic grid + search engine
-        ├── learn.js      # topic sections, scenario checks, habits
-        ├── quiz.js       # quiz flow + best score
-        └── faq.js        # filters, search, accordion
 ```
+
+📚 **[Full documentation in the Wiki →](https://github.com/Ridma-kithara/Cyber-Awareness-Hub-Exito-/wiki)** — site guide, security notes, and how to edit the trilingual content.
 
 ## Content policy
 
